@@ -73,7 +73,7 @@ class ViewController: UIViewController, GetDataProtocol {
             
             self.sendDB.sendToDo(userName: UserDefaults.standard.object(forKey: "userName") as! String, text: textField.text!)
             
-            self.db.collection("Users").getDocuments() { (snapshot, error) in
+        self.db.collection("Users").whereField("userID", isEqualTo: Auth.auth().currentUser!.uid).getDocuments() { (snapshot, error) in
                 
                 if let error = error {
                     
