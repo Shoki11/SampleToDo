@@ -22,7 +22,7 @@ class GetDate {
         
         if slash == true {
             
-            format.dateFormat = "yyyy/MM/dd/hh/mm"
+            format.dateFormat = "yyyy/MM/dd/hh/mm/ss"
             
         }
         

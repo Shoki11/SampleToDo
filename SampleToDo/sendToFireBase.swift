@@ -21,7 +21,7 @@ class sendToFireBase {
         var date = GetDate.getTodayDate(slash: true)
         
         // 現在の年月をcollectionIDとして
-        for _ in 0 ... 3 {
+        for _ in 0 ... 4 {
             
             // dateの中に/があったら""に置き換える
             if let slash = date.range(of: "/") {
@@ -34,18 +34,15 @@ class sendToFireBase {
             
         }
         
-        // 200101230408 前から8つ 200101をcollectionIDに
-        let collectionID = date.prefix(8)
+        // 200101230408 前から8つ 20010123をcollectionIDに
+        //let collectionID = date.prefix(8)
         
-        // 200101230408 後ろから4つ 23をdocumentIDnに
-        let documentID = date.suffix(4)
+        // 200101230408 後ろから4つ 0408をdocumentIDnに
+        //let documentID = date.suffix(4)
         
-        db.collection("Users").document(Auth.auth().currentUser!.uid)
-            .collection(String(collectionID))
-            .document(String(documentID))
-            .setData(
+        db.collection("Users").document(date).setData(
             
-                ["userName": userName, "userID": Auth.auth().currentUser!.uid, "text": text, "Date": Date().timeIntervalSince1970]
+                ["userName": userName, "userID": Auth.auth().currentUser!.uid, "text": text, "date": Date().timeIntervalSince1970]
                 
             )
        
