@@ -41,11 +41,10 @@ class sendToFireBase {
         //let documentID = date.suffix(4)
         
         db.collection("Users").document(date).setData(
-            
+
                 ["userName": userName, "userID": Auth.auth().currentUser!.uid, "text": text, "date": Date().timeIntervalSince1970]
-                
+
             )
-       
         
     }
     

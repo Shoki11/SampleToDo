@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     
     var loaData = LoadData()
     
+    var ToDoArray: [ToDoData] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +32,9 @@ class ViewController: UIViewController {
 
         collectionViewFlowLayout.estimatedItemSize = CGSize(width: 160, height: 220)
         
-        collectionViewFlowLayout.sectionInset = UIEdgeInsets(top:20, left: 30, bottom: 20, right: 30)
+        collectionViewFlowLayout.sectionInset = UIEdgeInsets(top:15, left: 30, bottom: 20, right: 30)
+        
+        getData()
         
     }
     
@@ -44,6 +48,28 @@ class ViewController: UIViewController {
         
         //loaData.loadData(userID: Auth.auth().currentUser!.uid, minute: dateArray[0] + dateArray[1] + dateArray[2],
                          //second: dateArray[3] + dateArray[4])
+        
+    }
+    
+    func getData() {
+        
+        loaData.loadData { result in
+            
+            switch result {
+            
+            case .success(let newToDoData):
+                
+                self.ToDoArray.append(contentsOf: newToDoData)
+                
+                self.collectionView.reloadData()
+            
+            case .failure(let error):
+                
+                print(error)
+                
+            }
+            
+        }
         
     }
     
@@ -67,7 +93,7 @@ class ViewController: UIViewController {
             let textField = alert.textFields![0]
             
             self.sendDB.sendToDo(userName: UserDefaults.standard.object(forKey: "userName") as! String, text: textField.text!)
-
+           
             print("登録完了")
                         
             })
@@ -96,7 +122,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     // データの個数を返す
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return loaData.loadData().count
+        return ToDoArray.count
         
     }
 
@@ -107,7 +133,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         
         label = cell.contentView.viewWithTag(1) as! UILabel
         
-        label.text = "te"
+        label.text = ToDoArray[indexPath.row].text
     
         return cell
     }

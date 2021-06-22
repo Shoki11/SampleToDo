@@ -9,56 +9,46 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-//protocol GetDataProtocol {
-//
-//    func getData(dataArray:[ToDoData])
-//
-//}
-
 class LoadData {
     
     let db = Firestore.firestore()
     
-    //var dataArray = [ToDoData]()
-    
-    //var getDataProtocol: GetDataProtocol?
-    
-    var ToDoArray : [String] = []
-    
-    func loadData() -> [String] {
+    func loadData(completion: @escaping (Result<[ToDoData], Error>) -> Void) {
         
-        self.db.collection("Users").whereField("userID", isEqualTo: Auth.auth().currentUser!.uid).getDocuments() { (snapshot, error) in
+        self.db.collection("Users").whereField("userID", isEqualTo: Auth.auth().currentUser!.uid).addSnapshotListener { (snapshot, error) in
+            
+            if let error = error {
                 
-                if let error = error {
+                print("Error getting documents: \(error)")
+                
+            } else {
+                
+                var ToDoArray: [ToDoData] = []
+                
+                for document in snapshot!.documents {
                     
-                    print("Error getting documents: \(error)")
+                    print("aaaaaaaaaa\(document.data())")
                     
-                } else {
-                    
-                    for document in snapshot!.documents {
+                    let data = document.data()
+
+                    if let userID = data["userID"] as? String,
+                       let userName = data["userName"] as? String,
+                        let text = data["text"] as? String,
+                        let date = data["date"] as? Double {
+
+                        let newToDoData = ToDoData(userName: userName, userID: userID, text: text, date: date)
                         
-                        print("aaaaaaaaaa\(document.data())")
+                        ToDoArray.append(newToDoData)
                         
-                        let data = document.data()
-
-                        if let userID = data["userID"] as? String,
-                           let userName = data["userName"] as? String,
-                            let text = data["text"] as? String,
-                            let date = data["date"] as? Double {
-
-                            let newToDoData = ToDoData(userName: userName, userID: userID, text: text, date: date)
-                            
-                            self.ToDoArray.append(newToDoData.text)
-                            
-                            print("abbbb\(self.ToDoArray)")
-                            
-                        }
-
                     }
+
                 }
+                
+                completion(.success(ToDoArray))
+                
             }
-        
-        return self.ToDoArray
+            
+        }
         
     }
     
