@@ -9,56 +9,56 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-protocol GetDataProtocol {
-    
-    func getData(dataArray:[ToDoData])
-    
-}
+//protocol GetDataProtocol {
+//
+//    func getData(dataArray:[ToDoData])
+//
+//}
 
 class LoadData {
     
     let db = Firestore.firestore()
     
-    var dataArray = [ToDoData]()
+    //var dataArray = [ToDoData]()
     
-    var getDataProtocol: GetDataProtocol?
+    //var getDataProtocol: GetDataProtocol?
     
-    func loadData(date: String) {
+    var ToDoArray : [String] = []
+    
+    func loadData() -> [String] {
         
-        db.collection("Users").document(date).addSnapshotListener { (snapShot, error) in
-            
-            self.dataArray = []
-            
-            if error != nil {
+        self.db.collection("Users").whereField("userID", isEqualTo: Auth.auth().currentUser!.uid).getDocuments() { (snapshot, error) in
                 
-                return
-                
+                if let error = error {
+                    
+                    print("Error getting documents: \(error)")
+                    
+                } else {
+                    
+                    for document in snapshot!.documents {
+                        
+                        print("aaaaaaaaaa\(document.data())")
+                        
+                        let data = document.data()
+
+                        if let userID = data["userID"] as? String,
+                           let userName = data["userName"] as? String,
+                            let text = data["text"] as? String,
+                            let date = data["date"] as? Double {
+
+                            let newToDoData = ToDoData(userName: userName, userID: userID, text: text, date: date)
+                            
+                            self.ToDoArray.append(newToDoData.text)
+                            
+                            print("abbbb\(self.ToDoArray)")
+                            
+                        }
+
+                    }
+                }
             }
-            
-//            if let snapshotDoc = snapShot?.documents {
-//
-//                for doc in snapshotDoc {
-//
-//                    let data = doc.data()
-//
-//                    if let userID = data["userID"] as? String,
-//                       let userName = data["userName"] as? String,
-//                       let text = data["text"] as? String,
-//                       let date = data["date"] as? Double {
-//
-//                        let newToDoData = ToDoData(userName: userName, userID: userID, text: text, date: date)
-//
-//                        self.dataArray.append(newToDoData)
-//
-//                    }
-//
-//                }
-//
-//            }
-            
-            self.getDataProtocol?.getData(dataArray: self.dataArray)
-            
-        }
+        
+        return self.ToDoArray
         
     }
     
