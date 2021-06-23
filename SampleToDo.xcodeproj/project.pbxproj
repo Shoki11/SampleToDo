@@ -96,13 +96,8 @@
 			children = (
 				7F49F046267DB3E80031D655 /* AppDelegate.swift */,
 				7F49F048267DB3E80031D655 /* SceneDelegate.swift */,
-				7F49F083267EEE240031D655 /* SignInViewController.swift */,
-				7F49F08D267F31580031D655 /* NavigationViewController.swift */,
-				7F49F07D267EDAE10031D655 /* ViewController.swift */,
-				7F49F087267F0DF30031D655 /* GetDate.swift */,
-				7F49F08A267F0F570031D655 /* sendToFireBase.swift */,
-				7F49F091267F54270031D655 /* ToDoData.swift */,
-				7F1404C226806D3D008AAB03 /* LoadData.swift */,
+				7F8072302682BA960078F2D1 /* Model */,
+				7F80722F2682BA810078F2D1 /* Controllers */,
 				7F49F04C267DB3E80031D655 /* Main.storyboard */,
 				7F49F04F267DB3EC0031D655 /* Assets.xcassets */,
 				7F49F051267DB3EC0031D655 /* LaunchScreen.storyboard */,
@@ -110,6 +105,27 @@
 				7F49F05C267DB5350031D655 /* GoogleService-Info.plist */,
 			);
 			path = SampleToDo;
+			sourceTree = "<group>";
+		};
+		7F80722F2682BA810078F2D1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7F49F083267EEE240031D655 /* SignInViewController.swift */,
+				7F49F08D267F31580031D655 /* NavigationViewController.swift */,
+				7F49F07D267EDAE10031D655 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		7F8072302682BA960078F2D1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7F49F087267F0DF30031D655 /* GetDate.swift */,
+				7F49F08A267F0F570031D655 /* sendToFireBase.swift */,
+				7F49F091267F54270031D655 /* ToDoData.swift */,
+				7F1404C226806D3D008AAB03 /* LoadData.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
