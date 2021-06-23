@@ -83,6 +83,8 @@ class ViewController: UIViewController {
         // alertTextField
         alert.addTextField(configurationHandler: { (textFiled) -> Void in
             
+            textFiled.placeholder = "ToDoを追加してください"
+            
             textFiled.delegate = self
             
         })
@@ -93,7 +95,7 @@ class ViewController: UIViewController {
             let textField = alert.textFields![0]
             
             self.sendDB.sendToDo(userName: UserDefaults.standard.object(forKey: "userName") as! String, text: textField.text!)
-           
+            
             print("登録完了")
                         
             })
