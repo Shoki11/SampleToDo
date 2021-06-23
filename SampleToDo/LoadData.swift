@@ -24,9 +24,13 @@ class LoadData {
             } else {
                 
                 var ToDoArray: [ToDoData] = []
+                
                 snapshot?.documentChanges.forEach({ (documentChanges) in
+                    
                     switch documentChanges.type {
+                    
                     case .added:
+                        
                         let data = documentChanges.document.data()
                         
                         if let userID = data["userID"] as? String,
@@ -37,10 +41,15 @@ class LoadData {
                             let newToDoData = ToDoData(userName: userName, userID: userID, text: text, date: date)
                             
                             ToDoArray.append(newToDoData)
+                            
                         }
+                        
                     case .modified, .removed:
+                        
                         print("消されたときの処理")
+                        
                     }
+                    
                 })
                 
                 completion(.success(ToDoArray))
