@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     var label = UILabel()
     
     var sendDB = sendToFireBase()
-    
     var loaData = LoadData()
     
     var ToDoArray: [ToDoData] = []
@@ -35,19 +34,6 @@ class ViewController: UIViewController {
         collectionViewFlowLayout.sectionInset = UIEdgeInsets(top:15, left: 30, bottom: 20, right: 30)
         
         getData()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // 現在時刻でデータを取得
-        //let date = GetDate.getTodayDate(slash: true)
-        
-        //dateArray = date.components(separatedBy: "/")
-        
-        //loaData.loadData(userID: Auth.auth().currentUser!.uid, minute: dateArray[0] + dateArray[1] + dateArray[2],
-                         //second: dateArray[3] + dateArray[4])
         
     }
     
