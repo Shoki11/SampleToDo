@@ -8,14 +8,9 @@
 import Foundation
 
 struct ToDoData {
-    
     let userName : String
-    
     let userID : String
-    
     let text : String
-    
     let date : Double
-    
 }
 
