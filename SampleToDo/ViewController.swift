@@ -28,13 +28,9 @@ class ViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-
         collectionViewFlowLayout.estimatedItemSize = CGSize(width: 160, height: 220)
-        
         collectionViewFlowLayout.sectionInset = UIEdgeInsets(top:15, left: 30, bottom: 20, right: 30)
-        
         getData()
-        
     }
     
     func getData() {

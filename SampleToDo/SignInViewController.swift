@@ -10,7 +10,6 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
-
 class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -21,7 +20,6 @@ class SignInViewController: UIViewController {
         
         let appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.sginInViewController = self
-        
     }
     
     func nextController() {
